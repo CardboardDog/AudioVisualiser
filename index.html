@@ -2,7 +2,7 @@
 <html>
 <head>
   <icon src="https://raw.githubusercontent.com/CardboardDog/AudioVisualiser/main/favicon.ico"></icon>
-  <title>AV 1.029b debug</title>
+  <title>AV 1.030b debug</title>
 </head>
 <body id = "main">
   <canvas id = "render" style="width:100%; height:100%; background-size:100%; background-repeat:no-repeat; background-image: url('https://raw.githubusercontent.com/CardboardDog/AudioVisualiser/main/bg.png');"></canvas>
@@ -45,7 +45,7 @@ if (navigator.getUserMedia) {
 
           var average = values / length;
           render.fillstyle = "#FF9933"
-          context.clearRect(0, 0, renderElement.width, renderElement.height);
+          render.clearRect(0, 0, renderElement.width, renderElement.height);
           render.fillRect(0,0,Math.round(average),Math.round(average))
 
         } // end fn stream
