@@ -2,11 +2,11 @@
   <title>AV 1.002b</title>
 </head>
 <body id = "main">
-  <canvas id = "render" style="width:100%; height:100%;"></canvas>
+  <canvas id = "render" style="width:100%; height:100%; background-image: https://raw.githubusercontent.com/CardboardDog/AudioVisualiser/main/bg.png;"></canvas>
 </body>
 <script id = "VisualiserScript">
   var all = document.getElementById("main");
   main.style = "background-color:black;";
   var renderElement = document.getElementById("render");
-  var render = renderElement.getCurrentContext("2D");
+  var render = renderElement.getContext("2D");
 </script>
