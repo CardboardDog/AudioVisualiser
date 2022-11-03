@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AV 1.0222b</title>
+  <title>AV 1.023b</title>
 </head>
 <body id = "main">
   <canvas id = "render" style="width:100%; height:100%; background-size:100%; background-repeat:no-repeat; background-image: url('https://raw.githubusercontent.com/CardboardDog/AudioVisualiser/main/bg.png');"></canvas>
@@ -11,15 +11,53 @@
   main.style = "background-color:black;";
   var renderElement = document.getElementById("render");
   var render = renderElement.getContext("2D");
-  
-  
-  async function get(){
-    var stream = await navigator.mediaDevices.getUserMedia({video:false,audio:true})
-    var audioContext = new AudioContext();
-    var mediaStreamSource = await audioContext.createMediaStreamSource(stream);
-    var meter = await createAudioMeter(audioContext);
-    mediaStreamSource.connect(meter);
+  navigator.getUserMedia = navigator.getUserMedia ||
+  navigator.webkitGetUserMedia ||
+  navigator.mozGetUserMedia;
+  if (navigator.getUserMedia) {
+    navigator.getUserMedia({
+        audio: true
+      },
+      function(stream) {
+        audioContext = new AudioContext();
+        analyser = audioContext.createAnalyser();
+        microphone = audioContext.createMediaStreamSource(stream);
+        javascriptNode = audioContext.createScriptProcessor(2048, 1, 1);
+
+        analyser.smoothingTimeConstant = 0.8;
+        analyser.fftSize = 1024;
+
+        microphone.connect(analyser);
+        analyser.connect(javascriptNode);
+        javascriptNode.connect(audioContext.destination);
+
+        canvasContext = $("#canvas")[0].getContext("2d");
+
+        javascriptNode.onaudioprocess = function() {
+            var array = new Uint8Array(analyser.frequencyBinCount);
+            analyser.getByteFrequencyData(array);
+            var values = 0;
+
+            var length = array.length;
+            for (var i = 0; i < length; i++) {
+              values += (array[i]);
+            }
+
+            var average = values / length;
+
+            console.log(Math.round(average - 40));
+
+
+
+          } // end fn stream
+      },
+      function(err) {
+        console.log("The following error occured: " + err.name)
+      });
+  } else {
+   console.log("getUserMedia not supported");
+  }
   };
-  get();
+
 </script>
 </html>
