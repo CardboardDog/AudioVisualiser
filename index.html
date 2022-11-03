@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AV 1.0221b</title>
+  <title>AV 1.0222b</title>
 </head>
 <body id = "main">
   <canvas id = "render" style="width:100%; height:100%; background-size:100%; background-repeat:no-repeat; background-image: url('https://raw.githubusercontent.com/CardboardDog/AudioVisualiser/main/bg.png');"></canvas>
@@ -16,8 +16,8 @@
   async function get(){
     var stream = await navigator.mediaDevices.getUserMedia({video:false,audio:true})
     var audioContext = new AudioContext();
-    var mediaStreamSource = audioContext.createMediaStreamSource(stream);
-    var meter = createAudioMeter(audioContext);
+    var mediaStreamSource = await audioContext.createMediaStreamSource(stream);
+    var meter = await createAudioMeter(audioContext);
     mediaStreamSource.connect(meter);
   };
   get();
