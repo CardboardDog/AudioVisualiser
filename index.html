@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AV 1.017b</title>
+  <title>AV 1.018b</title>
 </head>
 <body id = "main">
   <canvas id = "render" style="width:100%; height:100%; background-size:100%; background-repeat:no-repeat; background-image: url('https://raw.githubusercontent.com/CardboardDog/AudioVisualiser/main/bg.png');"></canvas>
@@ -12,6 +12,6 @@
   var renderElement = document.getElementById("render");
   var render = renderElement.getContext("2D");
   
-  const stream = navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+  const micstream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
 </script>
 </html>
