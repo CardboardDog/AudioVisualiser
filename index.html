@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <icon src="https://raw.githubusercontent.com/CardboardDog/AudioVisualiser/main/favicon.ico"></icon>
   <title>AV 1.025b debug</title>
 </head>
 <body id = "main">
@@ -43,8 +44,8 @@ if (navigator.getUserMedia) {
           }
 
           var average = values / length;
-
-          render.rect(0,0,20,Math.round(average))
+          render.fillstyle = "#FF9933"
+          render.rect(0,0,Math.round(average),Math.round(average))
 
         } // end fn stream
     },
