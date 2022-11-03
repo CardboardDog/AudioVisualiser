@@ -1,10 +1,12 @@
 <head>
-  <title>AV 1.001b</title>
+  <title>AV 1.002b</title>
 </head>
 <body id = "main">
-  <canvas id = "render"></canvas>
+  <canvas id = "render" style="width:100%; height:100%;"></canvas>
 </body>
 <script id = "VisualiserScript">
   var all = document.getElementById("main");
   main.style = "background-color:black;";
+  var renderElement = document.getElementById("render");
+  var render = renderElement.getCurrentContext("2D");
 </script>
