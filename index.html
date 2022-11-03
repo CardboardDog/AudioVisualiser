@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AV 1.014b</title>
+  <title>AV 1.015b</title>
 </head>
 <body id = "main">
   <canvas id = "render" style="width:100%; height:100%; background-size:100%; background-repeat:no-repeat; background-image: url('https://raw.githubusercontent.com/CardboardDog/AudioVisualiser/main/bg.png');"></canvas>
@@ -18,7 +18,7 @@
   const analyserNode = audioContext.createAnalyser();
   mediaStreamAudioSourceNode.connect(analyserNode);
   const pcmData = new Float32Array(analyserNode.fftSize);
-  function onFrame = () => {
+  function onFrame = (){
       analyserNode.getFloatTimeDomainData(pcmData);
       var sumSquares = 0.0;
       var res = analyserNode[1];
