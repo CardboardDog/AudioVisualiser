@@ -2,18 +2,44 @@
 <html>
 <head>
   <icon src="https://raw.githubusercontent.com/CardboardDog/AudioVisualiser/main/favicon.ico"></icon>
-  <title>AV v1.0544-2Rb debug</title>
+  <title>AV v1.0546</title>
 </head>
 <body id = "main">
   <canvas id = "render" style="width:100%; height:100%;"></canvas>
 </body>
 <script id = "VisualiserScript">
+var yellowmap = [];
+var heightmap = [];
+var l = 0;
+var maxh = 1;
+function generatemaps(){
+  var maph = 0;
+  var rand = 0;
+  for(i = 0; yellowmap.length<100; i++){
+    rand = Math.random();
+    if(rand<0.5){
+      maph += Math.random()*2
+    }else{
+      if(rand>0.5){
+        maph += Math.random()*-2
+      }
+    }
+    yellowmap.push(maph);
+  }
+};
+function generateheightmaps(){
+  for(i=0;i<100;i++){
+    heightmap.push(Math.random()*100);
+  }
+}
 var all = document.getElementById("main");
 main.style = "background-color:black; background-size:100%; background-repeat:no-repeat; background-image: url('https://raw.githubusercontent.com/CardboardDog/AudioVisualiser/main/bg.png');";
 var renderElement = document.getElementById("render");
 var render = renderElement.getContext("2d");
 console.log(renderElement);
 console.log(render);
+generatemaps();
+generateheightmaps();
 navigator.getUserMedia = navigator.getUserMedia ||
   navigator.webkitGetUserMedia ||
   navigator.mozGetUserMedia;
@@ -37,7 +63,6 @@ if (navigator.getUserMedia) {
           var array = new Uint8Array(analyser.frequencyBinCount);
           analyser.getByteFrequencyData(array);
           var values = 0;
-
           var length = array.length;
           for (var i = 0; i < length; i++) {
             values += (array[i]);
@@ -46,7 +71,27 @@ if (navigator.getUserMedia) {
           var average = values / length;
           render.fillStyle = "rgb(229,171,25)";
           render.clearRect(0, 0, renderElement.width, renderElement.height);
-          render.fillRect(0,0,Math.round(average),Math.round(average));
+          var ii = array.length;
+          for(i=0; i<101; i++){
+            l = (Math.floor(array[Math.round(ii)]*yellowmap[i]));
+            l = (l/(renderElement.height))*7
+            //l = average*yellowmap[i];
+            //ii += (array.length/41)*-1
+            ii=heightmap[i];
+            if(maxh < l){
+              maxh = l;
+            }
+            //console.log(array.length);
+            render.fillRect(i*(renderElement.width/80),((renderElement.height/2)-(l/2)),Math.round((renderElement.width/200)),l);
+          }
+          //maxh -= average
+          //render.fillStyle = "rgb(0,999,0)";
+          //var ii = 0;
+          //for(i=41; i<82; i++){
+            //ii += (array.length/42)
+            //console.log(array.length);
+            //render.fillRect(i*(renderElement.width/80),((renderElement.height/2)-(Math.floor(array[Math.round(ii)]*yellowmap[i]))/2),Math.round((renderElement.width/200)),Math.floor(array[Math.round(ii)]*yellowmap[i]));
+          //}
 
         } // end fn stream
     },
