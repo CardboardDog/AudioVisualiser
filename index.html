@@ -2,7 +2,7 @@
 <html>
 <head>
   <icon src="https://raw.githubusercontent.com/CardboardDog/AudioVisualiser/main/favicon.ico"></icon>
-  <title>AV v1.0546</title>
+  <title>AV v1.055</title>
 </head>
 <body id = "main">
   <canvas id = "render" style="width:100%; height:100%;"></canvas>
@@ -28,8 +28,8 @@ function generatemaps(){
   }
 };
 function generateheightmaps(){
-  for(i=0;i<100;i++){
-    heightmap.push(Math.random()*100);
+  for(i=0;i<200;i++){
+    heightmap.push(Math.random()*60);
   }
 }
 var all = document.getElementById("main");
@@ -69,7 +69,7 @@ if (navigator.getUserMedia) {
           }
 
           var average = values / length;
-          render.fillStyle = "rgb(229,171,25)";
+          render.fillStyle = "rgb(250,172,46)";
           render.clearRect(0, 0, renderElement.width, renderElement.height);
           var ii = array.length;
           for(i=0; i<101; i++){
@@ -82,8 +82,29 @@ if (navigator.getUserMedia) {
               maxh = l;
             }
             //console.log(array.length);
-            render.fillRect(i*(renderElement.width/80),((renderElement.height/2)-(l/2)),Math.round((renderElement.width/200)),l);
+            render.fillRect(i*(renderElement.width/80),(((renderElement.height/2)-(l/2))+(renderElement.height/14)),Math.round((renderElement.width/200)),l);
           }
+
+
+
+          var average = values / length;
+          render.fillStyle = "rgba(215,78,50,0.77)";
+          //render.clearRect(0, 0, renderElement.width, renderElement.height);
+          var ii = array.length;
+          for(i=0; i<101; i++){
+            l = (Math.floor(array[Math.round(ii)]*yellowmap[i+3]));
+            l = (l/(renderElement.height))*7
+            //l = average*yellowmap[i];
+            //ii += (array.length/41)*-1
+            ii=heightmap[i+3];
+            if(maxh < l){
+              maxh = l;
+            }
+            //console.log(array.length);
+            render.fillRect(i*(renderElement.width/80),(((renderElement.height/2)-(l/2))-(renderElement.height/14)),Math.round((renderElement.width/200)),l);
+          }
+
+
           //maxh -= average
           //render.fillStyle = "rgb(0,999,0)";
           //var ii = 0;
