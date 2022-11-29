@@ -1,0 +1,14 @@
+{
+    "name": "AV",
+    "version": "1.0557",
+    "description": "Audio visualiser program",
+    "main": "main.js",
+    "author": "EN",
+    "license": "MIT",
+    "scripts": {
+        "start": "electron ."
+    },
+    "devDependencies": {
+      "electron": "19.0.0"
+    }
+  }
